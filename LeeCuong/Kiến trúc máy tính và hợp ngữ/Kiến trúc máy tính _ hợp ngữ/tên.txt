@@ -1,0 +1,48 @@
+.model small
+.stack
+.data
+hoten db "Nguyen Duong Van Khoa$"
+mssv db "15110235$"
+.code
+main proc
+mov ax,@data
+mov ds,ax
+mov ah,00 ;
+mov al,02 ; che do 80 cot * 25 hang.
+int 10h ; Dat che do xong
+mov dh,11 ; toa do tai hang 11
+mov dl,29 ; toa do cot 29
+mov si,02 ; hien thi 2 dong
+lap:
+mov ah,02
+int 10h ; dat con tro ve vi tri trong dh va dl
+mov cx, 21; so cot hien thi la 21
+mov al, 255 ; Al chua ma ASCII cua ky tu khoang trang
+mov ah,09 ; 
+mov bl,4eh ; thuoc tinh nen do chu vang
+int 10h ; hien thi 1 khoang trang
+inc dh ; tang toa do hang len 1
+dec si ; giam thanh ghi dem so lan hien thi 1 don vi
+jnz lap ; neu chua du 2 hang thi lam lai
+mov ah,2
+mov dh,11; hang 11
+mov dl,29; cot 29
+mov bh,0
+int 10h
+;in ho ten
+mov ah,9
+lea dx,hoten
+int 21h
+mov ah,2
+mov dh,12; hang 12
+mov dl,36; cot 36
+mov bh,0
+int 10h
+;int mssv
+mov ah,9
+lea dx,mssv
+int 21h
+mov ah,4ch
+int 21h
+main endp
+end main

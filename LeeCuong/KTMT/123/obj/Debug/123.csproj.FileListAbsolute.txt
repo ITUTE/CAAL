@@ -1,0 +1,6 @@
+D:\Visual2019\123\bin\Debug\123.exe.config
+D:\Visual2019\123\bin\Debug\123.exe
+D:\Visual2019\123\bin\Debug\123.pdb
+D:\Visual2019\123\obj\Debug\123.csprojAssemblyReference.cache
+D:\Visual2019\123\obj\Debug\123.exe
+D:\Visual2019\123\obj\Debug\123.pdb

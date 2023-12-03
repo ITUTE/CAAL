@@ -1,0 +1,60 @@
+
+;xuat ho ten - mssv giua man hinh
+
+stack segment
+    db  100h dup (?)
+stack ends
+
+data segment
+    names db "Ho va ten: Pham The Huu$"     ;23 ky tu
+    codes db "MSSV: 15110225$"              ;14 ky tu
+data ends     
+
+code segment
+start:
+    mov ax, @data
+    mov ds,ax
+    
+    
+    
+    ;them nen mau cho chu  
+    mov ah, 06h                                         
+    mov bh, 97h                  ;so thu 1 la mau nen, so thu 2 la mau chu    
+    ;toa do khung nen mau 
+    mov ch, 10d  ; y1           
+    mov cl, 27d  ; x1             
+    mov dh, 12d  ; y2               
+    mov dl, 49d  ; x2               
+    int 10h
+    
+    ;in names
+    mov ah,02h        
+    ;toa do names
+    mov dh,10d  ; y 
+    mov dl,27d  ; x 
+    mov bh,0h
+    int 10h
+    
+    mov ah,09h
+    mov dx,word ptr ds:offset names
+    int 21h       
+    
+    ;in codes  
+    mov ah,02h   
+    ;toa do codes
+    mov dh,12d  ; y
+    mov dl,27d  ; x
+    mov bh,0h
+    int 10h  
+    
+    mov ah,09h
+    mov dx,word ptr ds:offset codes
+    int 21h
+    
+    
+    
+    mov ax, 4c00h
+    int 21h    
+code ends
+ends start
+         

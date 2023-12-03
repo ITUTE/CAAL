@@ -1,0 +1,85 @@
+stack segment
+    db  100h dup (?)
+stack ends
+
+data segment
+      day1 db 3, 4, 8, 7, 8
+    day2 db 9, 5, 2, 3, 1
+    tong db 6 dup(0)
+     names db "Ho va ten: Tran Nhat Truong$"
+    codes db "MSSV: 15110307$"
+     mess db "Ket qua la :$"
+data ends
+
+code segment
+    assume cs:code, ds:data, ss:stack
+main:
+    mov ax, @data
+    mov ds,ax
+     
+    mov cx, 05h
+    mov bx, 04h
+    cong:
+    mov al, byte ptr ds:day1[bx]
+    adc al, byte ptr ds:day2[bx]
+    aaa
+    mov byte ptr ds:tong[bx + 1] , al
+    dec bx
+    loop cong
+    jnc nhay
+    mov byte ptr ds:tong, 01h
+    nhay:
+    
+    mov cx, 06h
+    mov bx, 00h
+    inchu:
+    mov ah, 02h
+    mov dl, byte ptr ds:tong[bx]
+    or dl, 30h
+    int 21h
+    inc bx
+    loop inchu
+    
+    mov ah, 08h
+    int 21h
+    
+    ;bai 2
+    mov ah,02  ; chuyen con tro ra giua
+    mov dh,22  ; dong 11
+    mov dl,48  ; cot 26
+    mov bh,0h
+    int 10h
+    ; them nen mau cho chu
+    mov ah, 06h
+    mov al, 00h ;xoa chu o kqa bai1 roi in mau kqa bai2
+    mov bh, 25h  ;so1 la nen mau blue,4 la chu mau Red   (tra trong bang help )
+    mov ch, 21d ;toa do dau hang
+    mov cl, 40d ; toa do dau cot
+    mov dh, 24d ; toa do cuoi hang   hang: 24 hang
+    mov dl, 79d ; toa do cuoi cot    cot: 80 cot
+    int 10h
+     ;ket thuc them nen mau
+    mov ah,9
+    mov dx,word ptr ds: offset names
+    int 21h
+    
+    mov ah,2
+    mov dl,0ah
+    int 21h  
+    
+    mov ah,02h ; chuyen con tro xuong dong, ra giua
+    mov dh,23  ; dong 12
+    mov dl,48   ; cot 32
+    mov bh,0h  ; o che do grahics
+    int 10h
+    
+    mov ah,09
+    mov dx,word ptr ds: offset codes
+    int 21h 
+    ;ket thuc bai2
+    mov ax, 4C00h
+    int 21h 
+    
+code ends
+
+end main

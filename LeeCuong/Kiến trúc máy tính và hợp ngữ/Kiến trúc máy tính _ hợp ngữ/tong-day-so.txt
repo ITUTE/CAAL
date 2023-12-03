@@ -1,0 +1,60 @@
+; bai 1: nhap vao mot so bat ky xuat ra tong day so cho truoc
+
+stack segment
+    db  100h dup (?)
+stack ends
+
+data segment
+    num db 1,2,3,4,5,6,7,8,9
+    sum dw ? 
+    mess db "Ket qua la :$"
+data ends
+
+code segment
+    assume cs:code, ds:data, ss:stack
+main:   
+    ; luu du lieu vao thanh ghi
+    mov ax, @data
+    mov ds,ax
+    
+    ; bai 1
+    ; tinh tong day so 
+    mov cx, 9                       ; day bao nhieu so thi bay nhieu vong lap
+    mov bx, 0h                      ; bx=0
+    mov ah, 00h                     ; bo 2 hang mov ah,al xor ax,ax lam rong ax 
+    mov al, 00h                        
+    ; vong lap tinh tong day so
+    cong:
+    add al, byte ptr ds:num[bx]     ; chuyen tu kieu word sang kieu byte de xu ly
+    aaa                             ; chuyen sang ma ascii
+    inc bx                          ; tang bx
+    loop cong
+    mov word ptr ds:sum, ax         ; chuyen ket qua tu kieu byte sang kieu word
+    mov ah, 09h                     ; in chuoi
+    mov dx, word ptr ds:offset mess ; xuat chuoi mess
+    int 21h
+    
+    mov ah, 08h                     ; dung man hinh
+    int 21h
+    
+    ; chinh ket qua (bit cao - bit thap)
+    mov ah, 2h
+    mov dl, byte ptr ds:sum[1]
+    or dl,30h
+    int 21h     
+    mov dl, byte ptr ds:sum[0]
+    or dl,30h
+    int 21h 
+    
+    ; ket thuc chuong trinh
+    mov ah, 4Ch; tro ve man hinh dos
+    int 21h 
+    
+code ends
+
+end main
+
+
+
+
+

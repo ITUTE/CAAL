@@ -1,2 +1,1 @@
-# CAAL
-Kiến trúc máy tính và hợp ngữ
+# Kiến trúc máy tính và hợp ngữ

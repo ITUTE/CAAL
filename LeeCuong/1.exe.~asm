@@ -1,0 +1,18 @@
+.model small
+.stack 100h
+.data
+
+.code
+
+main proc
+mov ax, @data
+mov ds, ax
+
+;int 21h ah,1,2,9
+mov ah,1
+int 21h
+end main
+
+
+
+
